@@ -25,8 +25,8 @@ class GraphInteface:
          """
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        """return a dictionary of all the nodes connected from node_id , each node is represented using a pair (key,
-        weight)
+        """return a dictionary of all the nodes connected from node_id , each node is represented
+        using a pair (key,weight)
         """
 
     def get_mc(self) -> int:
