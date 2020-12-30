@@ -1,17 +1,17 @@
-from src.GeoLocation import GeoLocation
-
-
 class NodeData:
-    def __init__(self, pos: GeoLocation, key: int, weight: float = 0.0, tag: int = 0, info: str = "f"):
-        self._pos = pos
+    def __init__(self, key: int, pos: tuple = None, weight: float = 0.0, tag: int = 0, info: str = "f"):
         self._key = key
+        self._pos = pos
         self._weight = weight
         self._tag = tag
         self._info = info
         self._src = {}
         self._dest = {}
 
-    def addDest(self, dest: int, weight: float):
+    def __repr__(self):
+        return f"pos:{self._pos}"
+
+    def add_dest(self, dest: int, weight: float):
         """
         This function adds another node to be the destination of this node.
         :param dest:
@@ -20,20 +20,47 @@ class NodeData:
         """
         self._dest[dest] = weight
 
-    def addSrc(self, src: int, weight: float):
+    def has_dest(self, dest: int) -> bool:
+        for i in self._dest.keys():
+            if i == dest:
+                return True
+        return False
+
+    def has_src(self, src: int) -> bool:
+        for i in self._src.keys():
+            if i == src:
+                return True
+        return False
+
+    def remove_dest(self, dest: int) -> bool:
+        if self.has_dest(dest):
+            self._dest.pop(dest)
+            return True
+        return False
+
+    def remove_src(self, src: int) -> bool:
+        if self.has_src(src):
+            self._src.pop(src)
+            return True
+        return False
+
+    def add_src(self, src: int, weight: float):
         """
         This function adds another node to be the source of this node.
         :param src:
         :param weight:
         :return:
         """
-        self._dest[src] = weight
+        self._src[src] = weight
 
-    def getDest(self) -> dict:
+    def get_dest(self) -> dict:
         return self._dest
 
-    def getSrc(self) -> dict:
+    def get_src(self) -> dict:
         return self._src
+
+    def get_weight(self, dest: int) -> float:
+        return self._dest.get(dest)
 
     def getKey(self) -> int:
         return self._key
@@ -41,10 +68,10 @@ class NodeData:
     def setKey(self, key: int):
         self._key = key
 
-    def getPos(self) -> GeoLocation:
+    def getPos(self) -> tuple:
         return self._pos
 
-    def setPos(self, pos: GeoLocation):
+    def setPos(self, pos: tuple):
         self._pos = pos
 
     def getWeight(self) -> float:
