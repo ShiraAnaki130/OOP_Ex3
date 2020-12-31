@@ -1,15 +1,19 @@
 class NodeData:
-    def __init__(self, key: int, pos: tuple = None, weight: float = 0.0, tag: int = 0, info: str = "f"):
-        self._key = key
-        self._pos = pos
+    def __init__(self, id: int, pos: tuple = None, tag: int = 0, info: str = "f", weight: float = 0.0):
+        self.pos = pos
+        self.id = id
         self._weight = weight
         self._tag = tag
         self._info = info
         self._src = {}
         self._dest = {}
 
+    def as_dict_node(self):
+        node_dict = self.__dict__
+        return node_dict
+
     def __repr__(self):
-        return f"pos:{self._pos}"
+        return f"{self.id}: |edges out|: {len(self._dest)} |edges in|: {len(self._src)}"
 
     def add_dest(self, dest: int, weight: float):
         """
@@ -63,16 +67,16 @@ class NodeData:
         return self._dest.get(dest)
 
     def getKey(self) -> int:
-        return self._key
+        return self.id
 
-    def setKey(self, key: int):
-        self._key = key
+    def setKey(self, id: int):
+        self.id = id
 
     def getPos(self) -> tuple:
-        return self._pos
+        return self.pos
 
     def setPos(self, pos: tuple):
-        self._pos = pos
+        self.pos = pos
 
     def getWeight(self) -> float:
         return self._weight

@@ -11,7 +11,7 @@ class DiGraph:
         self._vertexes = {}
 
     def __repr__(self):
-        return f"DiGraph vertexes:{self._vertexes.keys()}"
+        return f"Graph |V|:{len(self._vertexes)} |E|: {edges_size}"
 
     def __contains__(self, item: int):
         for i in self._vertexes.keys():
@@ -34,7 +34,7 @@ class DiGraph:
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if not self._vertexes.__contains__(node_id):
-            self._vertexes[node_id] = NodeData(self, node_id, pos)
+            self._vertexes[node_id] = NodeData(node_id, pos)
             global MC
             MC += 1
             return True
