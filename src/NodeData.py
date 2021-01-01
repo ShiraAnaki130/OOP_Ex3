@@ -1,7 +1,7 @@
 class NodeData:
-    def __init__(self, id: int, pos: tuple = None, tag: int = 0, info: str = "f", weight: float = 0.0):
-        self.pos = pos
-        self.id = id
+    def __init__(self, id: int, pos: tuple = (0, 0, 0), weight: float = 0.0, tag: int = 0, info: str = "f"):
+        self._pos = pos
+        self._id = id
         self._weight = weight
         self._tag = tag
         self._info = info
@@ -13,7 +13,7 @@ class NodeData:
         return node_dict
 
     def __repr__(self):
-        return f"{self.id}: |edges out|: {len(self._dest)} |edges in|: {len(self._src)}"
+        return f"{self._id}: |edges out|: {len(self._dest)} |edges in|: {len(self._src)}"
 
     def add_dest(self, dest: int, weight: float):
         """
@@ -22,18 +22,21 @@ class NodeData:
         :param weight:
         :return:
         """
-        self._dest[dest] = weight
+        if dest != self._id:
+            self._dest[dest] = weight
 
     def has_dest(self, dest: int) -> bool:
-        for i in self._dest.keys():
-            if i == dest:
-                return True
+        if dest != self._id:
+            for i in self._dest.keys():
+                if i == dest:
+                    return True
         return False
 
     def has_src(self, src: int) -> bool:
-        for i in self._src.keys():
-            if i == src:
-                return True
+        if src != self._id:
+            for i in self._src.keys():
+                if i == src:
+                    return True
         return False
 
     def remove_dest(self, dest: int) -> bool:
@@ -55,7 +58,8 @@ class NodeData:
         :param weight:
         :return:
         """
-        self._src[src] = weight
+        if src != self._id:
+            self._src[src] = weight
 
     def get_dest(self) -> dict:
         return self._dest
@@ -67,16 +71,16 @@ class NodeData:
         return self._dest.get(dest)
 
     def getKey(self) -> int:
-        return self.id
+        return self._id
 
     def setKey(self, id: int):
-        self.id = id
+        self._id = id
 
     def getPos(self) -> tuple:
-        return self.pos
+        return self._pos
 
     def setPos(self, pos: tuple):
-        self.pos = pos
+        self._pos = pos
 
     def getWeight(self) -> float:
         return self._weight
