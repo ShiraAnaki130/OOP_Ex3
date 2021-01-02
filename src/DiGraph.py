@@ -1,5 +1,5 @@
 from src import GraphInterface
-from NodeData import NodeData
+from src.NodeData import NodeData
 
 MC: int = 0
 edges_size: int = 0
