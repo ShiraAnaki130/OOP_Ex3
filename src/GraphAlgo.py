@@ -12,13 +12,30 @@ class GraphAlgo:
         self._graph = DiGraph()
 
     def get_graph(self) -> GraphInterface:
+        """
+        This function returns the graph on which this set of algorithms operates on.
+        :return: A directional weighted graph.
+        """
         return self._graph
 
     def as_dict_edge(self, src: int, dest: int, weight: float):
-        self.edge = {"src": src, "w": weight, "dest": dest}
-        return self.edge
+        """"
+        This function creates a dictionary of a single edge in the graph
+        with the fields of src, dest and weight- according to the JSON format.
+        @param src: the source of the edge
+        @param dest: the destination of the edge
+        @param weight: the edge's weight
+        :return: the dictionary of this edge.
+        """
+        edge = {"src": src, "w": weight, "dest": dest}
+        return edge
 
     def save_to_json(self, file_name: str) -> bool:
+        """
+        This function saves the graph in JSON format to a file.
+        @param file_name: The path to the out file.
+        @return: True if the save was successful, or Flase o.w.
+        """
         try:
             Nodes = []
             Edges = []
@@ -44,6 +61,11 @@ class GraphAlgo:
             return False
 
     def load_from_json(self, file_name: str) -> bool:
+        """
+        This function loads a graph from a json file.
+        @param file_name: The path to the json file
+        @returns True if the loading was successful, or False o.w.
+        """
         new_graph = DiGraph()
         try:
             with open(file_name, "r") as file:
