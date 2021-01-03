@@ -1,14 +1,15 @@
 import json
 import random
-
 import matplotlib.pyplot as plt
 import numpy as np
+from src.DiGraph import DiGraph
+from src.NodeData import NodeData
+from src.node_data import node_data
+from src.GraphInterface import GraphInterface
+from src.GraphAlgoInterface import GraphAlgoInterface
 
-from DiGraph import DiGraph
-from src import GraphInterface
 
-
-class GraphAlgo:
+class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self):
         self._graph = DiGraph()

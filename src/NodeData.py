@@ -1,14 +1,15 @@
 from src.node_data import node_data
 
 
-class NodeData:
+class NodeData(node_data):
+
     def __init__(self, _id: int, _pos: tuple = None, weight: float = 0.0, tag: int = 0, info: str = "f"):
         """
         This function creates a new node_data with unique id, weight, position, tag, and info.
         Each node_data has a dictionary 'dest' for the edges in which this node is the source node
         and dictionary 'src' of the edges in which this node is the destination node.
-        :param id : key of the node
-        :param pos: 3 coordinates tuple, default: None.
+        :param _id : key of the node
+        :param _pos: 3 coordinates tuple, default: None.
         :param weight: float weight, default: 0.0.
         :param tag: int tag, default: 0.
         :param info: string info, default: "f".

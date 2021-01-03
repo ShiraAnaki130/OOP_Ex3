@@ -17,7 +17,7 @@ class NodeDataTest(unittest.TestCase):
         self.assertEqual(node1.get_src(), {})
         node2 = NodeData(2)
         self.assertEqual(node2.get_key(), 2)
-        self.assertEqual(node2.get_pos(), (0, 0, 0))
+        self.assertEqual(node2.get_pos(), None)
         self.assertEqual(node2.get_weight(), 0.0)
         self.assertEqual(node2.get_info(), "f")
         self.assertEqual(node2.get_tag(), 0)
@@ -28,7 +28,7 @@ class NodeDataTest(unittest.TestCase):
         pos = (1, 2, 3)
         node1 = NodeData(1, pos, 3.4)
         node_dict = node1.as_dict_node()
-        test_dict = {"_id": 1, "_pos": pos, "_weight": 3.4, "_tag": 0, "_info": "f", "_src": {}, "_dest": {}}
+        test_dict = {"id": 1, "pos": pos, "_weight": 3.4, "_tag": 0, "_info": "f", "_src": {}, "_dest": {}}
         for k, v in node_dict.items():
             self.assertEqual(v, test_dict[k])
 
@@ -131,7 +131,7 @@ class NodeDataTest(unittest.TestCase):
         node.add_dest(6, 2.3)
         test_dict = {'1': None, '2': 3.2, '3': 4.5, '4': 1.3, '5': 3.4, '6': 2.3}
         for k, v in test_dict.items():
-            self.assertEqual(node.get_weight(int(k)), v)
+            self.assertEqual(node.getWeight(int(k)), v)
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ class node_data:
 
     def __repr__(self):
         """"
-        This function is a simple reper function of this node.
+        This function is a simple repr function of this node.
         The function provides the number of the the edges which getting out and in of this node.
         @return: a string with the number of the the edges which getting out and in of this node.
         """
@@ -88,7 +88,7 @@ class node_data:
         """
         raise NotImplementedError
 
-    def get_weight(self, dest: int) -> float:
+    def getWeight(self, dest: int) -> float:
         """
         This function returns the weight of the edge in which this node is the edge's source
         and the given key is the edge's destination.
@@ -126,7 +126,7 @@ class node_data:
         """
         raise NotImplementedError
 
-    def getWeight(self) -> float:
+    def get_weight(self) -> float:
         """
         This function returns the node's weight.
         :return: the weight of the node.
