@@ -8,19 +8,19 @@ class NodeDataTest(unittest.TestCase):
     def test_new_node(self):
         pos = (1, 2, 3)
         node1 = NodeData(1, pos, 3.4)
-        self.assertEqual(node1.getKey(), 1)
-        self.assertEqual(node1.getPos(), (1, 2, 3))
+        self.assertEqual(node1.get_key(), 1)
+        self.assertEqual(node1.get_pos(), (1, 2, 3))
         self.assertEqual(node1.getWeight(), 3.4)
-        self.assertEqual(node1.getInfo(), "f")
-        self.assertEqual(node1.getTag(), 0)
+        self.assertEqual(node1.get_info(), "f")
+        self.assertEqual(node1.get_tag(), 0)
         self.assertEqual(node1.get_dest(), {})
         self.assertEqual(node1.get_src(), {})
         node2 = NodeData(2)
-        self.assertEqual(node2.getKey(), 2)
-        self.assertEqual(node2.getPos(), (0, 0, 0))
+        self.assertEqual(node2.get_key(), 2)
+        self.assertEqual(node2.get_pos(), (0, 0, 0))
         self.assertEqual(node2.getWeight(), 0.0)
-        self.assertEqual(node2.getInfo(), "f")
-        self.assertEqual(node2.getTag(), 0)
+        self.assertEqual(node2.get_info(), "f")
+        self.assertEqual(node2.get_tag(), 0)
         self.assertEqual(node2.get_dest(), {})
         self.assertEqual(node2.get_src(), {})
 
@@ -39,7 +39,7 @@ class NodeDataTest(unittest.TestCase):
         node.add_dest(2, 3.2)
         node.add_dest(3, 4.5)
         node.add_dest(4, 1.3)
-        node_dict = node.get_dest();
+        node_dict = node.get_dest()
         self.assertEqual(1 in node_dict, False)
         test_dict = {'2': 3.2, '3': 4.5, '4': 1.3}
         for k, v in node_dict.items():
@@ -66,7 +66,7 @@ class NodeDataTest(unittest.TestCase):
         node.add_src(2, 3.2)
         node.add_src(3, 4.5)
         node.add_src(4, 1.3)
-        node_dict = node.get_src();
+        node_dict = node.get_src()
         self.assertEqual(1 in node_dict, False)
         test_dict = {'2': 3.2, '3': 4.5, '4': 1.3}
         for k, v in node_dict.items():
@@ -92,8 +92,8 @@ class NodeDataTest(unittest.TestCase):
         node.add_dest(2, 3.2)
         node.add_dest(3, 4.5)
         node.add_dest(4, 1.3)
-        node.add_dest(5,3.4)
-        node.add_dest(6,2.3)
+        node.add_dest(5, 3.4)
+        node.add_dest(6, 2.3)
         test_dict = {'2': True, '3': False, '4': True, '5': False, '6': True}
         for k in test_dict.keys():
             self.assertEqual(node.has_dest(int(k)), True)

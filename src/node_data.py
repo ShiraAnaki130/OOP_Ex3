@@ -1,33 +1,14 @@
-from src.node_data import node_data
-
-
-class NodeData:
-    def __init__(self, id: int, pos: tuple = None, weight: float = 0.0, tag: int = 0, info: str = "f"):
-        """
-        This function creates a new node_data with unique id, weight, position, tag, and info.
-        Each node_data has a dictionary 'dest' for the edges in which this node is the source node
-        and dictionary 'src' of the edges in which this node is the destination node.
-        :param id : key of the node
-        :param pos: 3 coordinates tuple, default: None.
-        :param weight: float weight, default: 0.0.
-        :param tag: int tag, default: 0.
-        :param info: string info, default: "f".
-        """
-        self.pos = pos
-        self.id = id
-        self._weight = weight
-        self._tag = tag
-        self._info = info
-        self._src = {}
-        self._dest = {}
+class node_data:
+    """This abstract class represents an interface of node (vertex) in a directional
+    weighted graph.
+    """
 
     def as_dict_node(self):
         """
         This function creates a dictionary of this node.
         @return: the dictionary of this node.
         """
-        node_dict = self.__dict__
-        return node_dict
+        raise NotImplementedError
 
     def __repr__(self):
         """"
@@ -35,7 +16,7 @@ class NodeData:
         The function provides the number of the the edges which getting out and in of this node.
         @return: a string with the number of the the edges which getting out and in of this node.
         """
-        return f"{self.id}: |edges out|: {len(self._dest)} |edges in|: {len(self._src)}"
+        raise NotImplementedError
 
     def add_dest(self, dest: int, weight: float):
         """
@@ -45,56 +26,7 @@ class NodeData:
         :param weight: the weight of the new edge.
         :return: None
         """
-        if dest != self.id:
-            self._dest[dest] = weight
-
-    def has_dest(self, dest: int) -> bool:
-        """
-        This function checks if there is an edge in which this node is the edge's source and
-        given key is the edge's destination.
-        :param dest: the given key destination.
-        :return: True if there the edge is exist, or False otherwise.
-        """
-        if dest != self.id:
-            for i in self._dest.keys():
-                if i == dest:
-                    return True
-        return False
-
-    def has_src(self, src: int) -> bool:
-        """
-        This function checks if there is an edge in which this node is the edge's destination
-        and the given key is the edge's source.
-        :param src: the edge's source.
-        :return: True if this edge is exist, or False otherwise.
-        """
-        if src != self.id:
-            for i in self._src.keys():
-                if i == src:
-                    return True
-        return False
-
-    def remove_dest(self, dest: int) -> bool:
-        """
-        This function removes the given dest from the dest dictionary.
-        :param dest: the destination key to remove.
-        :return: True if the dest removed, or False otherwise.
-        """
-        if self.has_dest(dest):
-            self._dest.pop(dest)
-            return True
-        return False
-
-    def remove_src(self, src: int) -> bool:
-        """
-        This function removes the given src from the src dictionary.
-        :param src: the source key to remove.
-        :return: True if the source removed, or False otherwise.
-        """
-        if self.has_src(src):
-            self._src.pop(src)
-            return True
-        return False
+        raise NotImplementedError
 
     def add_src(self, src: int, weight: float):
         """
@@ -104,8 +36,41 @@ class NodeData:
         :param weight: the weight of the new edge.
         :return: None
         """
-        if src != self.id:
-            self._src[src] = weight
+        raise NotImplementedError
+
+    def has_dest(self, dest: int) -> bool:
+        """
+        This function checks if there is an edge in which this node is the edge's source and
+        given key is the edge's destination.
+        :param dest: the given key destination.
+        :return: True if there the edge is exist, or False otherwise.
+        """
+        raise NotImplementedError
+
+    def has_src(self, src: int) -> bool:
+        """
+        This function checks if there is an edge in which this node is the edge's destination
+        and the given key is the edge's source.
+        :param src: the edge's source.
+        :return: True if this edge is exist, or False otherwise.
+        """
+        raise NotImplementedError
+
+    def remove_dest(self, dest: int) -> bool:
+        """
+        This function removes the given dest from the dest dictionary.
+        :param dest: the destination key to remove.
+        :return: True if the dest removed, or False otherwise.
+        """
+        raise NotImplementedError
+
+    def remove_src(self, src: int) -> bool:
+        """
+        This function removes the given src from the src dictionary.
+        :param src: the source key to remove.
+        :return: True if the source removed, or False otherwise.
+        """
+        raise NotImplementedError
 
     def get_dest(self) -> dict:
         """
@@ -113,7 +78,7 @@ class NodeData:
         edges's source.
         :return: the dictionary of all the edges in which this node is the edges's source.
         """
-        return self._dest
+        raise NotImplementedError
 
     def get_src(self) -> dict:
         """
@@ -121,7 +86,7 @@ class NodeData:
         edges's destination.
         :return: the dictionary of all the edges in which this node is the edges's destination.
         """
-        return self._src
+        raise NotImplementedError
 
     def get_weight(self, dest: int) -> float:
         """
@@ -131,74 +96,74 @@ class NodeData:
         :return: the weight of the edge which this node is the source and the given
         key is the edge's destination.
         """
-        return self._dest.get(dest)
+        raise NotImplementedError
 
     def get_key(self) -> int:
         """
         This function returns this node's key.
         :return: the key of this node.
         """
-        return self.id
+        raise NotImplementedError
 
     def set_key(self, id: int):
         """
         This function sets a new key to this node.
         :param id: the new key.
         """
-        self.id = id
+        raise NotImplementedError
 
     def get_pos(self) -> tuple:
         """
         This function returns the position of this node.
         :return: the position of this node: 3 coordinates tuple, or Node(default case) .
         """
-        return self.pos
+        raise NotImplementedError
 
     def set_pos(self, pos: tuple):
         """
         This function sets the position of the node.
         :param pos: tuple of the coordinates, or None(default case).
         """
-        self.pos = pos
+        raise NotImplementedError
 
     def getWeight(self) -> float:
         """
         This function returns the node's weight.
         :return: the weight of the node.
         """
-        return self._weight
+        raise NotImplementedError
 
     def set_weight(self, weight: float):
         """
         This function sets a new weight for this node.
         :param weight: the new weight.
         """
-        self._weight = weight
+        raise NotImplementedError
 
     def get_tag(self) -> int:
         """
         This function returns the node's tag.
         :return: the tag of the node.
         """
-        return self._tag
+        raise NotImplementedError
 
     def set_tag(self, tag: int):
         """
         This function sets a new tag to this node.
         :param tag: the new tag.
         """
-        self._tag = tag
+        raise NotImplementedError
 
     def get_info(self) -> str:
         """
         This function returns the info of this node.
         :return: the info associated with this node.
         """
-        return self._info
+        raise NotImplementedError
 
     def set_info(self, info: str):
         """
         This function sets new info to this node.
         :param info: the new info.
         """
-        self._info = info
+        raise NotImplementedError
