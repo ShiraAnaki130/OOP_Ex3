@@ -2,7 +2,7 @@ from src.node_data import node_data
 
 
 class NodeData:
-    def __init__(self, id: int, pos: tuple = None, weight: float = 0.0, tag: int = 0, info: str = "f"):
+    def __init__(self, _id: int, _pos: tuple = None, weight: float = 0.0, tag: int = 0, info: str = "f"):
         """
         This function creates a new node_data with unique id, weight, position, tag, and info.
         Each node_data has a dictionary 'dest' for the edges in which this node is the source node
@@ -13,8 +13,8 @@ class NodeData:
         :param tag: int tag, default: 0.
         :param info: string info, default: "f".
         """
-        self.pos = pos
-        self.id = id
+        self.pos = _pos
+        self.id = _id
         self._weight = weight
         self._tag = tag
         self._info = info
@@ -123,7 +123,7 @@ class NodeData:
         """
         return self._src
 
-    def get_weight(self, dest: int) -> float:
+    def getWeight(self, dest: int) -> float:
         """
         This function returns the weight of the edge in which this node is the edge's source
         and the given key is the edge's destination.
@@ -161,7 +161,7 @@ class NodeData:
         """
         self.pos = pos
 
-    def getWeight(self) -> float:
+    def get_weight(self) -> float:
         """
         This function returns the node's weight.
         :return: the weight of the node.
