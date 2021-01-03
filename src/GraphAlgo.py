@@ -1,12 +1,13 @@
 from src import GraphAlgoInterface
 from typing import List
 from src import GraphInterface
-from DiGraph import DiGraph
-from NodeData import NodeData
+from src import DiGraph
+from src import NodeData
 import json
 import random
 
-class GraphAlgo:
+
+class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self):
         self._graph = DiGraph()
