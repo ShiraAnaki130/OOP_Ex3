@@ -2,6 +2,7 @@ from src.node_data import node_data
 
 
 class NodeData(node_data):
+
     def __init__(self, _id: int, _pos: tuple = None, weight: float = 0.0, tag: int = 0, info: str = "f"):
         """
         This function creates a new node_data with unique id, weight, position, tag, and info.
