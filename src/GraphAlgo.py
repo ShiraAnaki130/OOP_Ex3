@@ -131,8 +131,6 @@ class GraphAlgo(GraphAlgoInterface):
                 node = parent[str(node.get_key)]
                 path.append(node)
             path.reverse()
-        else:
-            return -1, path
         return nodes[str(id2)].get_tag(), path
 
 
