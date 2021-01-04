@@ -6,6 +6,8 @@ The project is about programming a data structure called a directional weighted 
 
 The project code is basically a 'translation' from the OOP_Ex2 project's code, which about programming a directional weighted graph in Java.
 
+The main idea of the project is to examine the tests results of this project compare to the same code program in Java, and in NetWorkX's python library, and concluding which of the program environment is preferable.
+
 ### About the graph:
 
 ***description:***
@@ -27,43 +29,43 @@ Every node_data has a unique key, a position in space, weight, tag and info(rema
 
 The functions which applicable on a vertex:
 
-:small_red_triangle: add_dest(dest: int, weight: float): connecting an edge between self --> dest with the given weight.
+- add_dest(dest: int, weight: float): connecting an edge between self --> dest with the given weight.
 
-:small_red_triangle: add_src(src: int, weight: float): connecting an edge between src --> self with the given weight. 
+- add_src(src: int, weight: float): connecting an edge between src --> self with the given weight. 
 
-:small_red_triangle: has_dest(dest: int, weight: float = None): checking if there is an  edge between self--> dest with the given weight.
+- has_dest(dest: int, weight: float = None): checking if there is an  edge between self--> dest with the given weight.
 
-:small_red_triangle: has_src(src: int): checking if there is an edge between src--> self with the given weight.
+- has_src(src: int): checking if there is an edge between src--> self with the given weight.
 
-:small_red_triangle: remove_dest(dest: int): removing the given dest from the 'dest' dictionary.
+- remove_dest(dest: int): removing the given dest from the 'dest' dictionary.
 
-:small_red_triangle: remove_src(src: int): removing the given src from the 'src' dictionary.
+- remove_src(src: int): removing the given src from the 'src' dictionary.
 
-:small_red_triangle: get_dest(): return a dictionary (key, weight) of all the edges which getting out of this vertex.
+- get_dest(): return a dictionary (key, weight) of all the edges which getting out of this vertex.
 
-:small_red_triangle: get_src():  return a dictionary (key, weight) of all the edges which getting in of this vertex.
+- get_src(): return a dictionary (key, weight) of all the edges which getting in of this vertex.
 
-:small_red_triangle: getWeight(dest: int): return the edge's weight between  self--> dest.
+- getWeight(dest: int): return the edge's weight between  self--> dest.
 
-:small_red_triangle: get_key(): return the vertex's key.
+- get_key(): return the vertex's key.
 
-:small_red_triangle: set_key(id: int): sets a new key to the vertex.
+- set_key(id: int): sets a new key to the vertex.
 
-:small_red_triangle: get_pos(): returns the position of the vertex.
+- get_pos(): returns the position of the vertex.
 
-:small_red_triangle: set_pos():  sets the position of the vertex.
+- set_pos(): sets the position of the vertex.
 
-:small_red_triangle: get_weight(): returns the vertex's weight
+- get_weight(): returns the vertex's weight
 
-:small_red_triangle: set_weight():  sets a new weight for the vertex.
+- set_weight(): sets a new weight for the vertex.
 
-:small_red_triangle: get_tag(): returns the vertex's tag .
+- get_tag(): returns the vertex's tag .
 
-:small_red_triangle: set_tag(): sets a new tag to the vertex.
+- set_tag(): sets a new tag to the vertex.
 
-:small_red_triangle: get_tag(): returns the vertex's info .
+- get_tag(): returns the vertex's info .
 
-:small_red_triangle: set_tag(): sets a new info to the vertex.
+- set_tag(): sets a new info to the vertex.
 
 :mag: **DiGraph:**
 
