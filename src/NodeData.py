@@ -21,15 +21,23 @@ class NodeData(node_data):
         self._src = {}
         self._dest = {}
 
-    def as_dict_node(self):
+    def as_dict_node(self) -> dict:
         """
         This function creates a dictionary of this node.
         @return: the dictionary of this node.
         """
         node_dict = self.__dict__
         return node_dict
+    def __cmp__(self, other):
+        if type(other) == type(self):
+            ans = 0
+            if self._tag - other.get_tag() > 0:
+                ans = 1
+            elif self._tag - other < 0:
+                ans = -1
+        return ans
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """"
         This function is a simple reper function of this node.
         The function provides the number of the the edges which getting out and in of this node.
@@ -37,7 +45,7 @@ class NodeData(node_data):
         """
         return f"{self.id}: |edges out|: {len(self._dest)} |edges in|: {len(self._src)}"
 
-    def add_dest(self, dest: int, weight: float):
+    def add_dest(self, dest: int, weight: float) -> None:
         """
         This function adds another pair of (key, weight) which represent a new edge
         in which this node is the edge's source.
@@ -96,7 +104,7 @@ class NodeData(node_data):
             return True
         return False
 
-    def add_src(self, src: int, weight: float):
+    def add_src(self, src: int, weight: float) -> None:
         """
         This function adds another pair of (key, weight) which represent a new edge
         in which this node is the edge's destination.
@@ -140,7 +148,7 @@ class NodeData(node_data):
         """
         return self.id
 
-    def set_key(self, id: int):
+    def set_key(self, id: int) -> None:
         """
         This function sets a new key to this node.
         :param id: the new key.
@@ -154,7 +162,7 @@ class NodeData(node_data):
         """
         return self.pos
 
-    def set_pos(self, pos: tuple):
+    def set_pos(self, pos: tuple) -> None:
         """
         This function sets the position of the node.
         :param pos: tuple of the coordinates, or None(default case).
@@ -168,7 +176,7 @@ class NodeData(node_data):
         """
         return self._weight
 
-    def set_weight(self, weight: float):
+    def set_weight(self, weight: float) -> None:
         """
         This function sets a new weight for this node.
         :param weight: the new weight.
@@ -182,7 +190,7 @@ class NodeData(node_data):
         """
         return self._tag
 
-    def set_tag(self, tag: int):
+    def set_tag(self, tag: int) -> None:
         """
         This function sets a new tag to this node.
         :param tag: the new tag.
@@ -196,7 +204,7 @@ class NodeData(node_data):
         """
         return self._info
 
-    def set_info(self, info: str):
+    def set_info(self, info: str) -> None:
         """
         This function sets new info to this node.
         :param info: the new info.

@@ -1,3 +1,5 @@
+from math import inf
+
 from src import GraphAlgoInterface
 from typing import List
 from src import GraphInterface
@@ -5,12 +7,13 @@ from src import DiGraph
 from src import NodeData
 import json
 import random
+import queue
 
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self):
-        self._graph = DiGraph()
+    def __init__(self, graph: DiGraph = DiGraph()):
+        self._graph = graph
 
     def get_graph(self) -> GraphInterface:
         """
@@ -19,7 +22,7 @@ class GraphAlgo(GraphAlgoInterface):
         """
         return self._graph
 
-    def as_dict_edge(self, src: int, dest: int, weight: float):
+    def as_dict_edge(self, src: int, dest: int, weight: float) -> dict:
         """"
         This function creates a dictionary of a single edge in the graph
         with the fields of src, dest and weight- according to the JSON format.
@@ -96,10 +99,44 @@ class GraphAlgo(GraphAlgoInterface):
             return True
         except Exception as e:
             print(e)
-            return False
+        return False
+
+    def shortest_path(self, id1: int, id2: int) -> (float, list):
+        priority_queue = queue.PriorityQueue()
+        nodes = self._graph.get_all_v
+        parent = {}
+        for n in nodes:
+            n.set_tag(inf)
+        start_node = nodes.get(str(id1))
+        start_node.set_tag(0)
+        priority_queue.put(start_node)
+        while not priority_queue.empty():
+            vertex = priority_queue.get()
+            if vertex.get_key() != id2:
+                edges = self._graph.all_out_edges_of_node(int(vertex))
+                for e, v in edges.items():
+                    node_e = nodes[str(e)]
+                    t = vertex + v
+                    if t < node_e.get_tag():
+                        node_e.set_tag(t)
+                        priority_queue.put(node_e)
+                        parent[e] = vertex.get_key()
+            else:
+                break
+        path = []
+        if id2 in parent.keys():
+            node = id2
+            path.append(node)
+            while node != id1:
+                node = parent[str(node.get_key)]
+                path.append(node)
+            path.reverse()
+        else:
+            return -1, path
+        return nodes[str(id2)].get_tag(), path
 
 
 
 
-
+        
 
