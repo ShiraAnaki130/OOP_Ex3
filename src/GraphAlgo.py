@@ -1,15 +1,22 @@
+from math import inf
+import matplotlib.pyplot as plt
+import numpy as np
+from src import GraphAlgoInterface
+from typing import List
+from src import GraphInterface
+from src import DiGraph
+from src import NodeData
 import json
 import random
-import matplotlib.pyplot as plt
-from src.DiGraph import DiGraph
-from src.GraphInterface import GraphInterface
-from src.GraphAlgoInterface import GraphAlgoInterface
+import queue
 
 
 class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self, graph: DiGraph = DiGraph()):
         self._graph = graph
+        self._parent = {}
+
 
     def get_graph(self) -> GraphInterface:
         """
@@ -18,7 +25,7 @@ class GraphAlgo(GraphAlgoInterface):
         """
         return self._graph
 
-    def as_dict_edge(self, src: int, dest: int, weight: float):
+    def as_dict_edge(self, src: int, dest: int, weight: float) -> dict:
         """"
         This function creates a dictionary of a single edge in the graph
         with the fields of src, dest and weight- according to the JSON format.
@@ -76,12 +83,14 @@ class GraphAlgo(GraphAlgoInterface):
                 for i in Nodes:
                     id = i.get("id")
                     if len(i) == 1:
-                        new_graph.add_node(id, None)
+                        list_random = [random.uniform(0.0, 3.0) for j in range(2)]
+                        x, y = list_random
+                        z = 0.0
+                        pos = (x, y, z)
+                        new_graph.add_node(id, pos)
                     else:
-                        pos_str = i.get("pos")
-                        x, y, z = pos_str.split(",")
-                        pos_f = (float(x), float(y), float(z))
-                        new_graph.add_node(id, pos_f)
+                        pos = i.get("pos")
+                        new_graph.add_node(id, pos)
 
                 for p in Edges:
                     src = p.get("src")
@@ -93,16 +102,46 @@ class GraphAlgo(GraphAlgoInterface):
             return True
         except Exception as e:
             print(e)
-            return False
+        return False
+
+    def shortest_path(self, id1: int, id2: int) -> (float, list):
+        priority_queue = queue.PriorityQueue()
+        nodes = self._graph.get_all_v
+        parent = {}
+        for n in nodes:
+            n.set_tag(inf)
+        start_node = nodes.get(str(id1))
+        start_node.set_tag(0)
+        priority_queue.put(start_node)
+        while not priority_queue.empty():
+            vertex = priority_queue.get()
+            if vertex.get_key() != id2:
+                edges = self._graph.all_out_edges_of_node(int(vertex))
+                for e, v in edges.items():
+                    node_e = nodes[str(e)]
+                    t = vertex + v
+                    if t < node_e.get_tag():
+                        node_e.set_tag(t)
+                        priority_queue.put(node_e)
+                        parent[e] = vertex.get_key()
+            else:
+                break
+        path = []
+        if id2 in parent.keys():
+            node = id2
+            path.append(node)
+            while node != id1:
+                node = parent[str(node.get_key)]
+                path.append(node)
+            path.reverse()
+        return nodes[str(id2)].get_tag(), path
 
     def plot_graph(self) -> None:
-        """
-        This function plots the graph.
-        If the nodes have a position, the nodes will be placed there.
-        Otherwise, they will be placed in a random but elegant manner.
-        @return: None
-        """
-
+        """            This function plots the graph.
+            If the nodes have a position, the nodes will be placed there.
+            Otherwise, they will be placed in a random but elegant manner.
+            @return: None
+         """
         all_vertexes = self._graph.get_all_v()
         x_values = []
         y_values = []
@@ -135,76 +174,28 @@ class GraphAlgo(GraphAlgoInterface):
         plt.show()
 
 
+    def connected_component(self, id1: int) -> list:
+        nodes = self._graph.get_all_v()
+        self._parent = {}
+        for n in nodes:
+            n.set_tag(-1)
+        node = nodes[str(id1)]
+        self.dfs(node)
+        path = []
+        path.append(node)
+        while node != id1:
+            node = self.parent[str(node.get_key)]
+            path.append(node)
+        path.reverse()
 
-
-
-if __name__ == '__main__':
-    graphalgo = GraphAlgo()
-    graph = graphalgo.get_graph()
-    t0 = (1.2, 2.3, 3.3)
-    t1 = (1.2, 2.3, 7.3)
-    t2 = (1.2, 5.3, 3.6)
-    t3 = (51.2, 2.3, 9.3)
-    t4 = (8.2, 7.3, 3.2)
-    for i in range(5):
-        graph.add_node(i)
-    graph.add_edge(0, 1, 2.3)
-    graph.add_edge(0, 3, 1.2)
-    graph.add_edge(1, 2, 4.5)
-    graph.add_edge(1, 4, 4.9)
-    graph.add_edge(3, 2, 1.34)
-    graph.add_edge(2, 1, 4.5)
-    list = [random.uniform(35.1, 35.2) for j in range(3)]
-    (x, y, z) = list
-    t = (2.0, 7.9, 8.0)
-    print((x, y, z))
-    print("kk", type(t[0]))
-    n = [i for i in graph.get_all_v().keys()]
-    print("n ", n)
-    graphalgo.plot_graph()
-    pos = graph.get_all_v().get(0).get_pos()
-    print("pos ", pos)
-    print(type(pos))
-
-
-    number = "35.18869800968523,32.104927164705884,0.0"
-    x, y, z = number.split(",")
-    pos1 = (float(x), float(y), float(z))
-    print('pos ',pos1)
-    print(type(pos1), type(pos1[0]), pos1[0])
-    #print("x,y,z ", x, y, z)
-    #print("num", type(number_1))
-    #print("number_1", type(number_1), number_1)
-
-    graph_new = DiGraph()
-    for i in range(5):
-        graph_new.add_node(i)
-    graph_new.add_edge(0, 1, 2.3)
-    graph_new.add_edge(0, 3, 1.2)
-    graph_new.add_edge(1, 2, 4.5)
-    graph_new.add_edge(1, 4, 4.9)
-    graph_new.add_edge(3, 2, 1.34)
-    graph_new.add_edge(2, 1, 4.5)
-    print(graph.__dict__ )
-    print(graph_new.__dict__ )
-    if graph == graph_new:
-        print("trueeee")
-    else:
-        print("f")
-    list_1 = (7.8, [9, 0, 7])
-    list_2 = (7.8, [9, 0, 7])
-    if list_1 == list_2:
-        print("eq")
-
-
-
-
-
-
-
-
-
-
+    def dfs(self, v: NodeData):
+        graph = self._graph.get_all_v()
+        edges = self._graph.all_out_edges_of_node(v.get_key())
+        for e in edges.keys():
+            if e not in self._parent:
+                node_e = graph[str(e)]
+                self.parent[str(e)] = v
+                self.dfs(node_e)
 
 
 
