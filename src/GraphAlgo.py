@@ -1,18 +1,15 @@
 import json
 import random
 import matplotlib.pyplot as plt
-import numpy as np
 from src.DiGraph import DiGraph
-from src.NodeData import NodeData
-from src.node_data import node_data
 from src.GraphInterface import GraphInterface
 from src.GraphAlgoInterface import GraphAlgoInterface
 
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self):
-        self._graph = DiGraph()
+    def __init__(self, graph: DiGraph = DiGraph()):
+        self._graph = graph
 
     def get_graph(self) -> GraphInterface:
         """
@@ -136,6 +133,72 @@ class GraphAlgo(GraphAlgoInterface):
         plt.title("OOP_Ex3")
         plt.xlabel("x axis")
         plt.show()
+
+
+
+
+
+if __name__ == '__main__':
+    graphalgo = GraphAlgo()
+    graph = graphalgo.get_graph()
+    t0 = (1.2, 2.3, 3.3)
+    t1 = (1.2, 2.3, 7.3)
+    t2 = (1.2, 5.3, 3.6)
+    t3 = (51.2, 2.3, 9.3)
+    t4 = (8.2, 7.3, 3.2)
+    for i in range(5):
+        graph.add_node(i)
+    graph.add_edge(0, 1, 2.3)
+    graph.add_edge(0, 3, 1.2)
+    graph.add_edge(1, 2, 4.5)
+    graph.add_edge(1, 4, 4.9)
+    graph.add_edge(3, 2, 1.34)
+    graph.add_edge(2, 1, 4.5)
+    list = [random.uniform(35.1, 35.2) for j in range(3)]
+    (x, y, z) = list
+    t = (2.0, 7.9, 8.0)
+    print((x, y, z))
+    print("kk", type(t[0]))
+    n = [i for i in graph.get_all_v().keys()]
+    print("n ", n)
+    graphalgo.plot_graph()
+    pos = graph.get_all_v().get(0).get_pos()
+    print("pos ", pos)
+    print(type(pos))
+
+
+    number = "35.18869800968523,32.104927164705884,0.0"
+    x, y, z = number.split(",")
+    pos1 = (float(x), float(y), float(z))
+    print('pos ',pos1)
+    print(type(pos1), type(pos1[0]), pos1[0])
+    #print("x,y,z ", x, y, z)
+    #print("num", type(number_1))
+    #print("number_1", type(number_1), number_1)
+
+    graph_new = DiGraph()
+    for i in range(5):
+        graph_new.add_node(i)
+    graph_new.add_edge(0, 1, 2.3)
+    graph_new.add_edge(0, 3, 1.2)
+    graph_new.add_edge(1, 2, 4.5)
+    graph_new.add_edge(1, 4, 4.9)
+    graph_new.add_edge(3, 2, 1.34)
+    graph_new.add_edge(2, 1, 4.5)
+    print(graph.__dict__ )
+    print(graph_new.__dict__ )
+    if graph == graph_new:
+        print("trueeee")
+    else:
+        print("f")
+    list_1 = (7.8, [9, 0, 7])
+    list_2 = (7.8, [9, 0, 7])
+    if list_1 == list_2:
+        print("eq")
+
+
+
+
 
 
 

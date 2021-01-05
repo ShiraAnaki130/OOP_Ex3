@@ -3,21 +3,6 @@ class node_data:
     weighted graph.
     """
 
-    def as_dict_node(self):
-        """
-        This function creates a dictionary of this node.
-        @return: the dictionary of this node.
-        """
-        raise NotImplementedError
-
-    def __repr__(self):
-        """"
-        This function is a simple repr function of this node.
-        The function provides the number of the the edges which getting out and in of this node.
-        @return: a string with the number of the the edges which getting out and in of this node.
-        """
-        raise NotImplementedError
-
     def add_dest(self, dest: int, weight: float):
         """
         This function adds another pair of (key, weight) which represent a new edge
@@ -38,7 +23,7 @@ class node_data:
         """
         raise NotImplementedError
 
-    def has_dest(self, dest: int) -> bool:
+    def has_dest(self, dest: int, weight: float = None) -> bool:
         """
         This function checks if there is an edge in which this node is the edge's source and
         given key is the edge's destination.
