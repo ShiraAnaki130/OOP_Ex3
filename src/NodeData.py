@@ -29,14 +29,8 @@ class NodeData(node_data):
         """
         node_dict = self.__dict__
         return node_dict
-    def __cmp__(self, other):
-        if type(other) == type(self):
-            ans = 0
-            if self._tag - other.get_tag() > 0:
-                ans = 1
-            elif self._tag - other < 0:
-                ans = -1
-        return ans
+    def __lt__(self, other):
+        return self._tag < other.get_tag()
 
     def __repr__(self) -> str:
         """"

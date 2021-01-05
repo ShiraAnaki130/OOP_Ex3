@@ -108,20 +108,20 @@ class GraphAlgo(GraphAlgoInterface):
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         priority_queue = queue.PriorityQueue()
-        nodes = self._graph.get_all_v
+        nodes = self._graph.get_all_v()
         parent = {}
-        for n in nodes:
+        for n in nodes.values():
             n.set_tag(inf)
-        start_node = nodes.get(str(id1))
+        start_node = nodes.get(id1)
         start_node.set_tag(0)
         priority_queue.put(start_node)
         while not priority_queue.empty():
             vertex = priority_queue.get()
             if vertex.get_key() != id2:
-                edges = self._graph.all_out_edges_of_node(int(vertex))
+                edges = self._graph.all_out_edges_of_node(vertex.get_key())
                 for e, v in edges.items():
-                    node_e = nodes[str(e)]
-                    t = vertex + v
+                    node_e = nodes[e]
+                    t = v + vertex.get_tag()
                     if t < node_e.get_tag():
                         node_e.set_tag(t)
                         priority_queue.put(node_e)
@@ -133,10 +133,10 @@ class GraphAlgo(GraphAlgoInterface):
             node = id2
             path.append(node)
             while node != id1:
-                node = parent[str(node.get_key)]
+                node = parent[node]
                 path.append(node)
             path.reverse()
-        return nodes[str(id2)].get_tag(), path
+        return nodes[id2].get_tag(), path
 
     def plot_graph(self) -> None:
         """            This function plots the graph.
@@ -178,50 +178,24 @@ class GraphAlgo(GraphAlgoInterface):
         plt.show()
 
     def connected_component(self, id1: int) -> list:
-        nodes = self._graph.get_all_v()
-        self._parent = {}
-        for n in nodes:
-            n.set_tag(-1)
-        node = nodes[str(id1)]
-        self.dfs(node)
-        nodes_out = self._parent.copy()
-        self._parent = {}
-        self.dfs_transpose(node)
-        nodes_in = self._parent.copy()
-        keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
-        path = []
-        end_node = nodes[str(keys[-1])]
-        path.append(end_node)
-        while end_node.get_key() != id1:
-            end_node = self.parent[str(node.get_key())]
-            path.append(node)
-        path.reverse()
-        return path
+        self._parent = {id1: None}
+        self.dfs(id1)
+        nodes_out = self._parent
+        return list(nodes_out.keys())
 
-    def dfs(self, v: NodeData):
-        graph = self._graph.get_all_v()
-        edges = self._graph.all_out_edges_of_node(v.get_key())
+    def dfs(self, v: int):
+        edges = self._graph.all_out_edges_of_node(v)
         for e in edges.keys():
-            if e not in self._parent:
-                node_e = graph[str(e)]
-                self.parent[str(e)] = v
-                self.dfs(node_e)
-
-    def dfs_transpose(self, v: NodeData):
-        graph = self._graph.get_all_v()
-        edges = self._graph.all_in_edges_of_node(v.get_key())
-        for e in edges.keys():
-            if e not in self._parent:
-                node_e = graph[str(e)]
-                self.parent[str(e)] = v
-                self.dfs(node_e)
+            if e not in self._parent.keys():
+                self._parent[e] = v
+                self.dfs(e)
 
     def connected_components(self) -> List[list]:
         nodes = self._graph.get_all_v()
-        components = List
+        components = []
         mark = []
-        for k, v in nodes.items():
-            if v not in mark:
+        for k in nodes.keys():
+            if k not in mark:
                 component = self.connected_component(k)
                 mark[-1:-1] = component
                 components.append(component)
