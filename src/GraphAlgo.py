@@ -1,11 +1,11 @@
 from math import inf
 import matplotlib.pyplot as plt
 import numpy as np
-from src import GraphAlgoInterface
+from src.GraphAlgoInterface import GraphAlgoInterface
 from typing import List
-from src import GraphInterface
-from src import DiGraph
-from src import NodeData
+from src.GraphInterface import GraphInterface
+from src.DiGraph import DiGraph
+from src.NodeData import NodeData
 import json
 import random
 import queue
@@ -13,8 +13,11 @@ import queue
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def __init__(self, graph: DiGraph = DiGraph()):
-        self._graph = graph
+    def __init__(self, graph: DiGraph = None):
+        if graph is None:
+            self._graph = DiGraph()
+        else:
+            self._graph = graph
         self._parent = {}
 
     def get_graph(self) -> GraphInterface:
@@ -166,7 +169,9 @@ class GraphAlgo(GraphAlgoInterface):
                 y1_coordinate = all_vertexes.get(i).get_pos()[1]
                 x2_coordinate = all_vertexes.get(j).get_pos()[0]
                 y2_coordinate = all_vertexes.get(j).get_pos()[1]
-                plt.arrow(x1_coordinate, y1_coordinate, (x2_coordinate - x1_coordinate), (y2_coordinate - y1_coordinate), length_includes_head=True, width=0.000003, head_width=0.00016, color = 'k')
+                plt.arrow(x1_coordinate, y1_coordinate, (int(x2_coordinate) - int(x1_coordinate)),
+                          (int(y2_coordinate) - int(y1_coordinate)), length_includes_head=True, width=0.000003,
+                          head_width=0.00016, color='k')
         plt.ylabel("y axis")
         plt.title("OOP_Ex3")
         plt.xlabel("x axis")
@@ -179,12 +184,19 @@ class GraphAlgo(GraphAlgoInterface):
             n.set_tag(-1)
         node = nodes[str(id1)]
         self.dfs(node)
+        nodes_out = self._parent.copy()
+        self._parent = {}
+        self.dfs_transpose(node)
+        nodes_in = self._parent.copy()
+        keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
         path = []
-        path.append(node)
-        while node != id1:
-            node = self.parent[str(node.get_key)]
+        end_node = nodes[str(keys[-1])]
+        path.append(end_node)
+        while end_node.get_key() != id1:
+            end_node = self.parent[str(node.get_key())]
             path.append(node)
         path.reverse()
+        return path
 
     def dfs(self, v: NodeData):
         graph = self._graph.get_all_v()
@@ -195,5 +207,22 @@ class GraphAlgo(GraphAlgoInterface):
                 self.parent[str(e)] = v
                 self.dfs(node_e)
 
+    def dfs_transpose(self, v: NodeData):
+        graph = self._graph.get_all_v()
+        edges = self._graph.all_in_edges_of_node(v.get_key())
+        for e in edges.keys():
+            if e not in self._parent:
+                node_e = graph[str(e)]
+                self.parent[str(e)] = v
+                self.dfs(node_e)
 
-
+    def connected_components(self) -> List[list]:
+        nodes = self._graph.get_all_v()
+        components = List
+        mark = []
+        for k, v in nodes.items():
+            if v not in mark:
+                component = self.connected_component(k)
+                mark[-1:-1] = component
+                components.append(component)
+        return components
