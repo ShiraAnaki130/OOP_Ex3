@@ -51,7 +51,7 @@ class NodeData(node_data):
         if dest != self.id:
             self._dest[dest] = weight
 
-    def has_dest(self, dest: int) -> bool:
+    def has_dest(self, dest: int, weight: float = None) -> bool:
         """
         This function checks if there is an edge in which this node is the edge's source and
         given key is the edge's destination.
@@ -59,9 +59,13 @@ class NodeData(node_data):
         :return: True if there the edge is exist, or False otherwise.
         """
         if dest != self.id:
-            for i in self._dest.keys():
-                if i == dest:
-                    return True
+            for k, v in self._dest.items():
+                if weight is None:
+                    if k == dest:
+                        return True
+                else:
+                    if k == dest and v == weight:
+                        return True
         return False
 
     def has_src(self, src: int) -> bool:

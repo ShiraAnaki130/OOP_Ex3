@@ -1,10 +1,6 @@
-import unittest
 import random
+import unittest
 
-
-from src.GraphInterface import GraphInterface
-from src.node_data import node_data
-from src.NodeData import NodeData
 from src.DiGraph import DiGraph
 
 
@@ -25,7 +21,7 @@ class DiGraphTest(unittest.TestCase):
         for i in range(10):
             graph.add_node(i)
         for i in range(1, 10, 2):
-            graph.remove_node(i);
+            graph.remove_node(i)
         for i in range(1, 10, 2):
             self.assertEqual(graph.__contains__(i), False)
 
