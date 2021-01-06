@@ -184,6 +184,12 @@ class GraphAlgo(GraphAlgoInterface):
         plt.show()
 
     def connected_component(self, id1: int) -> list:
+        """
+            check Strongly Connected Component(SCC) of given node id
+            with the intersection of DFS and transpose dfs algorithms
+            :param id1: given node id
+            :return: list of the keys that are Strongly Connected
+        """
         self._parent = {id1: None}
         self.dfs(id1)
         nodes_out = self._parent
@@ -195,6 +201,10 @@ class GraphAlgo(GraphAlgoInterface):
         return keys
 
     def dfs(self, v: int):
+        """
+           this function implement the DFS recursive algorithm
+           :param v: current node id
+        """
         edges = self._graph.all_out_edges_of_node(v)
         for e in edges.keys():
             if e not in self._parent.keys():
@@ -202,6 +212,10 @@ class GraphAlgo(GraphAlgoInterface):
                 self.dfs(e)
 
     def dfs_transpose(self, v: int):
+        """
+            this function implement the DFS recursive algorithm on the transpose graph
+            :param v: current node id
+        """
         edges = self._graph.all_in_edges_of_node(v)
         for e in edges.keys():
             if e not in self._parent.keys():
@@ -209,6 +223,11 @@ class GraphAlgo(GraphAlgoInterface):
                 self.dfs(e)
 
     def connected_components(self) -> List[list]:
+        """
+        create list of all check Strongly Connected Component(SCC) on the graph
+        with the connected component function
+        :return :list of all the connected components
+        """
         nodes = self._graph.get_all_v()
         components = []
         mark = []
