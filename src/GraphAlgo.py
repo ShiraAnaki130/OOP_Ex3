@@ -184,33 +184,31 @@ class GraphAlgo(GraphAlgoInterface):
         plt.show()
 
     def connected_component(self, id1: int) -> list:
-        """
-        check Strongly Connected Component(SCC) of given node id with the DFS algorithm
-        :param id1: given node id
-        :return: list of the keys that are Strongly Connected
-        """
         self._parent = {id1: None}
         self.dfs(id1)
         nodes_out = self._parent
-        return list(nodes_out.keys())
+        self._parent = {id1: None}
+        self.dfs_transpose(id1)
+        nodes_in = self._parent
+        keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
+        keys.sort()
+        return keys
 
     def dfs(self, v: int):
-        """
-        this function implement the DFS recursive algorithm
-        :param v: current node id
-        """
         edges = self._graph.all_out_edges_of_node(v)
         for e in edges.keys():
             if e not in self._parent.keys():
                 self._parent[e] = v
                 self.dfs(e)
 
+    def dfs_transpose(self, v: int):
+        edges = self._graph.all_in_edges_of_node(v)
+        for e in edges.keys():
+            if e not in self._parent.keys():
+                self._parent[e] = v
+                self.dfs(e)
+
     def connected_components(self) -> List[list]:
-        """
-        create list of all check Strongly Connected Component(SCC) on the graph
-        with the connected component self function
-        :return :list of all the connected components
-        """
         nodes = self._graph.get_all_v()
         components = []
         mark = []
