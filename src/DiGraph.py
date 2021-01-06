@@ -107,7 +107,7 @@ class DiGraph(GraphInterface):
         @return: True if the edge was added successfully, False o.w.
         """
         if self._vertexes.__contains__(id1) and self._vertexes.__contains__(id2):
-            if not self._vertexes.get(id1).has_dest(id2, weight):
+            if not self._vertexes.get(id1).has_dest(id2):
                 self._vertexes.get(id1).add_dest(id2, weight)
                 self._vertexes.get(id2).add_src(id1, weight)
                 self._edges_size += 1

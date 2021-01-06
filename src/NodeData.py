@@ -29,6 +29,7 @@ class NodeData(node_data):
         """
         node_dict = self.__dict__
         return node_dict
+
     def __lt__(self, other):
         return self._tag < other.get_tag()
 
