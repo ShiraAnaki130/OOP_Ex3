@@ -107,6 +107,12 @@ class GraphAlgo(GraphAlgoInterface):
         return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
+        """
+        this function check with dijkstra algorithm the shortest path between two nodes on the graph
+        :param id1: source node id
+        :param id2: destination node id
+        :return : tuple of the distance of the edge in the graph and list of the nodes keys in the path.
+        """
         priority_queue = queue.PriorityQueue()
         nodes = self._graph.get_all_v()
         parent = {}
@@ -178,12 +184,21 @@ class GraphAlgo(GraphAlgoInterface):
         plt.show()
 
     def connected_component(self, id1: int) -> list:
+        """
+        check Strongly Connected Component(SCC) of given node id with the DFS algorithm
+        :param id1: given node id
+        :return: list of the keys that are Strongly Connected
+        """
         self._parent = {id1: None}
         self.dfs(id1)
         nodes_out = self._parent
         return list(nodes_out.keys())
 
     def dfs(self, v: int):
+        """
+        this function implement the DFS recursive algorithm
+        :param v: current node id
+        """
         edges = self._graph.all_out_edges_of_node(v)
         for e in edges.keys():
             if e not in self._parent.keys():
@@ -191,6 +206,11 @@ class GraphAlgo(GraphAlgoInterface):
                 self.dfs(e)
 
     def connected_components(self) -> List[list]:
+        """
+        create list of all check Strongly Connected Component(SCC) on the graph
+        with the connected component self function
+        :return :list of all the connected components
+        """
         nodes = self._graph.get_all_v()
         components = []
         mark = []
