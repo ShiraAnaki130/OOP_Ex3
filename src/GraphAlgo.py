@@ -113,6 +113,8 @@ class GraphAlgo(GraphAlgoInterface):
         :param id2: destination node id
         :return : tuple of the distance of the edge in the graph and list of the nodes keys in the path.
         """
+        if id1 == id2:
+            return inf, None
         priority_queue = queue.PriorityQueue()
         nodes = self._graph.get_all_v()
         parent = {}
@@ -142,7 +144,8 @@ class GraphAlgo(GraphAlgoInterface):
                 node = parent[node]
                 path.append(node)
             path.reverse()
-        return nodes[id2].get_tag(), path
+            return nodes[id2].get_tag(), path
+        return inf, None
 
     def plot_graph(self) -> None:
         """            This function plots the graph.
@@ -190,15 +193,17 @@ class GraphAlgo(GraphAlgoInterface):
             :param id1: given node id
             :return: list of the keys that are Strongly Connected
         """
-        self._parent = {id1: None}
-        self.dfs(id1)
-        nodes_out = self._parent
-        self._parent = {id1: None}
-        self.dfs_transpose(id1)
-        nodes_in = self._parent
-        keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
-        keys.sort()
-        return keys
+        if id1 in self._graph.get_all_v().keys():
+            self._parent = {id1: None}
+            self.dfs(id1)
+            nodes_out = self._parent
+            self._parent = {id1: None}
+            self.dfs_transpose(id1)
+            nodes_in = self._parent
+            keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
+            keys.sort()
+            return keys
+        return None
 
     def dfs(self, v: int):
         """
@@ -234,6 +239,7 @@ class GraphAlgo(GraphAlgoInterface):
         for k in nodes.keys():
             if k not in mark:
                 component = self.connected_component(k)
-                mark[-1:-1] = component
-                components.append(component)
+                if component is not None:
+                    mark[-1:-1] = component
+                    components.append(component)
         return components
