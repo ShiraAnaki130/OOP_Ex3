@@ -85,14 +85,12 @@ class GraphAlgo(GraphAlgoInterface):
                 for i in Nodes:
                     id = i.get("id")
                     if len(i) == 1:
-                        list_random = [random.uniform(0.0, 3.0) for j in range(2)]
-                        x, y = list_random
-                        z = 0.0
-                        pos = (x, y, z)
-                        new_graph.add_node(id, pos)
+                        new_graph.add_node(id, None)
                     else:
-                        pos = i.get("pos")
-                        new_graph.add_node(id, pos)
+                        pos_str = i.get("pos")
+                        x, y, z = pos_str.split(",")
+                        pos_f = (float(x), float(y), float(z))
+                        new_graph.add_node(id, pos_f)
 
                 for p in Edges:
                     src = p.get("src")
@@ -169,8 +167,8 @@ class GraphAlgo(GraphAlgoInterface):
                 y1_coordinate = all_vertexes.get(i).get_pos()[1]
                 x2_coordinate = all_vertexes.get(j).get_pos()[0]
                 y2_coordinate = all_vertexes.get(j).get_pos()[1]
-                plt.arrow(x1_coordinate, y1_coordinate, (int(x2_coordinate) - int(x1_coordinate)),
-                          (int(y2_coordinate) - int(y1_coordinate)), length_includes_head=True, width=0.000003,
+                plt.arrow(x1_coordinate, y1_coordinate, (x2_coordinate - x1_coordinate),
+                          (y2_coordinate - y1_coordinate), length_includes_head=True, width=0.000003,
                           head_width=0.00016, color='k')
         plt.ylabel("y axis")
         plt.title("OOP_Ex3")
@@ -181,10 +179,22 @@ class GraphAlgo(GraphAlgoInterface):
         self._parent = {id1: None}
         self.dfs(id1)
         nodes_out = self._parent
-        return list(nodes_out.keys())
+        self._parent = {id1: None}
+        self.dfs_transpose(id1)
+        nodes_in = self._parent
+        keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
+        keys.sort()
+        return keys
 
     def dfs(self, v: int):
         edges = self._graph.all_out_edges_of_node(v)
+        for e in edges.keys():
+            if e not in self._parent.keys():
+                self._parent[e] = v
+                self.dfs(e)
+
+    def dfs_transpose(self, v: int):
+        edges = self._graph.all_in_edges_of_node(v)
         for e in edges.keys():
             if e not in self._parent.keys():
                 self._parent[e] = v
@@ -200,3 +210,7 @@ class GraphAlgo(GraphAlgoInterface):
                 mark[-1:-1] = component
                 components.append(component)
         return components
+
+if __name__ == '__main__':
+    weight = random.uniform(0.0, 2.0)
+    print("weight ", weight)
