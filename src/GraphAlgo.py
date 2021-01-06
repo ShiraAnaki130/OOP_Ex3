@@ -105,6 +105,14 @@ class GraphAlgo(GraphAlgoInterface):
         return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
+        """
+        this function check with dijkstra algorithm the shortest path between two nodes on the graph
+        :param id1: source node id
+        :param id2: destination node id
+        :return : tuple of the distance of the edge in the graph and list of the nodes keys in the path.
+        """
+        if id1 == id2:
+            return inf, None
         priority_queue = queue.PriorityQueue()
         nodes = self._graph.get_all_v()
         parent = {}
@@ -134,7 +142,8 @@ class GraphAlgo(GraphAlgoInterface):
                 node = parent[node]
                 path.append(node)
             path.reverse()
-        return nodes[id2].get_tag(), path
+            return nodes[id2].get_tag(), path
+        return inf, None
 
     def plot_graph(self) -> None:
         """            This function plots the graph.
@@ -176,17 +185,30 @@ class GraphAlgo(GraphAlgoInterface):
         plt.show()
 
     def connected_component(self, id1: int) -> list:
-        self._parent = {id1: None}
-        self.dfs(id1)
-        nodes_out = self._parent
-        self._parent = {id1: None}
-        self.dfs_transpose(id1)
-        nodes_in = self._parent
-        keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
-        keys.sort()
-        return keys
+        """
+            check Strongly Connected Component(SCC) of given node id
+            with the intersection of DFS and transpose dfs algorithms
+            :param id1: given node id
+            :return: list of the keys that are Strongly Connected
+        """
+        if id1 in self._graph.get_all_v().keys():
+            self._parent = {id1: None}
+            self.dfs(id1)
+            nodes_out = self._parent
+            self._parent = {id1: None}
+            self.dfs_transpose(id1)
+            nodes_in = self._parent
+            keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
+            keys.sort()
+            return keys
+        return None
+
 
     def dfs(self, v: int):
+        """
+        this function implement the DFS recursive algorithm
+        :param v: current node id
+        """
         edges = self._graph.all_out_edges_of_node(v)
         for e in edges.keys():
             if e not in self._parent.keys():
@@ -194,6 +216,10 @@ class GraphAlgo(GraphAlgoInterface):
                 self.dfs(e)
 
     def dfs_transpose(self, v: int):
+        """
+        this function implement the DFS recursive algorithm on the transpose graph
+        :param v: current node id
+        """
         edges = self._graph.all_in_edges_of_node(v)
         for e in edges.keys():
             if e not in self._parent.keys():
@@ -201,16 +227,20 @@ class GraphAlgo(GraphAlgoInterface):
                 self.dfs(e)
 
     def connected_components(self) -> List[list]:
+        """
+        create list of all check Strongly Connected Component(SCC) on the graph
+        with the connected component function
+        :return :list of all the connected components
+        """
         nodes = self._graph.get_all_v()
         components = []
         mark = []
         for k in nodes.keys():
             if k not in mark:
                 component = self.connected_component(k)
-                mark[-1:-1] = component
-                components.append(component)
+                if component is not None:
+                    mark[-1:-1] = component
+                    components.append(component)
         return components
 
-if __name__ == '__main__':
-    weight = random.uniform(0.0, 2.0)
-    print("weight ", weight)
+
