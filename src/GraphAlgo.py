@@ -112,9 +112,11 @@ class GraphAlgo(GraphAlgoInterface):
         :return : tuple of the distance of the edge in the graph and list of the nodes keys in the path.
         """
         if id1 == id2:
-            return inf, None
+            return inf, []
         priority_queue = queue.PriorityQueue()
         nodes = self._graph.get_all_v()
+        if id1 not in nodes.keys() or id2 not in nodes.keys():
+            return inf, []
         parent = {}
         for n in nodes.values():
             n.set_tag(inf)
@@ -142,8 +144,7 @@ class GraphAlgo(GraphAlgoInterface):
                 node = parent[node]
                 path.append(node)
             path.reverse()
-            return nodes[id2].get_tag(), path
-        return inf, []
+        return nodes[id2].get_tag(), path
 
     def plot_graph(self) -> None:
         """            This function plots the graph.
@@ -184,47 +185,66 @@ class GraphAlgo(GraphAlgoInterface):
         plt.xlabel("x axis")
         plt.show()
 
+    def bfs(self, id1: int) -> None:
+        """
+           this function implement the BFS algorithm
+           :param id1: starting node id
+        """
+        nodes = self._graph.get_all_v()
+        for n in nodes.values():
+            n.set_tag(0)
+        frontier = queue.Queue()
+        start_node = nodes[id1]
+        start_node.set_tag(1)
+        frontier.put(start_node)
+        while not frontier.empty():
+            nxt = frontier.get()
+            for e in self._graph.all_out_edges_of_node(nxt.get_key()):
+                if nodes[e].get_tag() == 0:
+                    nodes[e].set_tag(1)
+                    frontier.put(nodes[e])
+                    self._parent[e] = nxt.get_key()
+            nxt.set_tag(2)
+
+    def transpose_bfs(self, id1: int) -> None:
+        """
+           this function implement the BFS algorithm on transpose graph
+           :param id1: starting node id
+        """
+        nodes = self._graph.get_all_v()
+        for n in nodes.values():
+            n.set_tag(0)
+        frontier = queue.Queue()
+        start_node = nodes[id1]
+        start_node.set_tag(1)
+        frontier.put(start_node)
+        while not frontier.empty():
+            nxt = frontier.get()
+            for e in self._graph.all_in_edges_of_node(nxt.get_key()):
+                if nodes[e].get_tag() == 0:
+                    nodes[e].set_tag(1)
+                    frontier.put(nodes[e])
+                    self._parent[e] = nxt.get_key()
+            nxt.set_tag(2)
+
     def connected_component(self, id1: int) -> list:
         """
             check Strongly Connected Component(SCC) of given node id
-            with the intersection of DFS and transpose dfs algorithms
+            with the intersection of BFS and transpose BFS algorithms
             :param id1: given node id
             :return: list of the keys that are Strongly Connected
         """
         if id1 in self._graph.get_all_v().keys():
             self._parent = {id1: None}
-            self.dfs(id1)
+            self.bfs(id1)
             nodes_out = self._parent
             self._parent = {id1: None}
-            self.dfs_transpose(id1)
+            self.transpose_bfs(id1)
             nodes_in = self._parent
             keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
             keys.sort()
             return keys
         return []
-
-
-    def dfs(self, v: int):
-        """
-        this function implement the DFS recursive algorithm
-        :param v: current node id
-        """
-        edges = self._graph.all_out_edges_of_node(v)
-        for e in edges.keys():
-            if e not in self._parent.keys():
-                self._parent[e] = v
-                self.dfs(e)
-
-    def dfs_transpose(self, v: int):
-        """
-        this function implement the DFS recursive algorithm on the transpose graph
-        :param v: current node id
-        """
-        edges = self._graph.all_in_edges_of_node(v)
-        for e in edges.keys():
-            if e not in self._parent.keys():
-                self._parent[e] = v
-                self.dfs(e)
 
     def connected_components(self) -> List[list]:
         """
@@ -238,9 +258,8 @@ class GraphAlgo(GraphAlgoInterface):
         for k in nodes.keys():
             if k not in mark:
                 component = self.connected_component(k)
-                if component is not None:
-                    mark[-1:-1] = component
-                    components.append(component)
+                mark[-1:-1] = component
+                components.append(component)
         return components
 
 

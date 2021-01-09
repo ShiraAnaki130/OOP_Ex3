@@ -133,10 +133,10 @@ class GraphAlgoTest(unittest.TestCase):
 
     def test_connected_component(self):
         #test_0:
-        # graph_algo = GraphAlgo()
-        # list = graph_algo.connected_component(8)
-        # list_actual = []
-        # self.assertEqual(list, list_actual)
+        graph_algo = GraphAlgo()
+        list = graph_algo.connected_component(8)
+        list_actual = []
+        self.assertEqual(list, list_actual)
 
         graph = DiGraph()
         for i in range(9):
@@ -166,60 +166,62 @@ class GraphAlgoTest(unittest.TestCase):
         graph_algo = GraphAlgo(graph)
         # test_1:
 
-        # list = graph_algo.connected_component(8)
-        # list_actual = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_component(8)
+        list_actual = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        self.assertEqual(list, list_actual)
 
         # test_2:
 
         graph_algo.get_graph().remove_edge(3, 2)
-        # list = graph_algo.connected_component(0)
-        # list_actual = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_component(0)
+        list_actual = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+        # list2 = graph_algo.connected_components()
+        # print(list2)
+        self.assertEqual(list, list_actual)
 
         # test_3:
 
         graph_algo.get_graph().remove_edge(2, 3)
-        # list = graph_algo.connected_component(5)
-        # list_actual = [2, 5]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_component(5)
+        list_actual = [2, 5]
+        self.assertEqual(list, list_actual)
 
         # test_4:
 
         graph_algo.get_graph().remove_edge(2, 5)
-        # list = graph_algo.connected_component(5)
-        # list_actual = [5]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_component(5)
+        list_actual = [5]
+        self.assertEqual(list, list_actual)
 
         # test_5:
 
         graph_algo.get_graph().add_edge(2, 5, 6.1)
-        # list = graph_algo.connected_component(4)
-        # list_actual = [0, 1, 3, 4, 6, 7, 8]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_component(4)
+        list_actual = [0, 1, 3, 4, 6, 7, 8]
+        self.assertEqual(list, list_actual)
 
         # test_6:
 
         graph_algo.get_graph().remove_edge(7, 4)
         graph_algo.get_graph().remove_edge(7, 1)
-        # list = graph_algo.connected_component(7)
-        # list_actual = [6, 7, 8]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_component(7)
+        list_actual = [6, 7, 8]
+        self.assertEqual(list, list_actual)
 
         # test_7:
 
         graph_algo.get_graph().add_edge(2, 3, 5.5)
         graph_algo.get_graph().remove_edge(5, 2)
-        # list = graph_algo.connected_component(2)
-        # list_actual = [0, 1, 2, 3, 4]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_component(2)
+        list_actual = [0, 1, 2, 3, 4]
+        self.assertEqual(list, list_actual)
 
     def test_connected_components(self):
-        # test_0 -> pass:
-        # graph_algo = GraphAlgo()
-        # list = graph_algo.connected_components()
-        # list_actual = []
-        # self.assertEqual(list, list_actual)
+        # test_0 :
+        graph_algo = GraphAlgo()
+        list = graph_algo.connected_components()
+        list_actual = []
+        self.assertEqual(list, list_actual)
 
         graph = DiGraph()
         for i in range(9):
@@ -248,50 +250,50 @@ class GraphAlgoTest(unittest.TestCase):
         graph.add_edge(2, 3, 5.5938753352369698)
         graph_algo = GraphAlgo(graph)
 
-        #test_1 -> fail:
-        # list = graph_algo.connected_components()
-        # list_actual = [[0, 1, 2, 3, 4, 5, 6, 7, 8]]
-        # self.assertEqual(list, list_actual)
+        #test_1:
+        list = graph_algo.connected_components()
+        list_actual = [[0, 1, 2, 3, 4, 5, 6, 7, 8]]
+        self.assertEqual(list, list_actual)
 
-        #test_2 -> fail:
+        #test_2:
         graph_algo.get_graph().remove_edge(3, 2)
-        # list = graph_algo.connected_components()
-        # list_actual = [[0, 1, 2, 3, 4, 5, 6, 7, 8]]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_components()
+        list_actual = [[0, 1, 2, 3, 4, 5, 6, 7, 8]]
+        self.assertEqual(list, list_actual)
 
-        #test_3 -> fail:
+        #test_3:
         graph_algo.get_graph().remove_edge(2, 3)
-        # list = graph_algo.connected_components()
-        # list_actual = [[0, 1, 3, 4, 6, 7, 8], [2, 5]]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_components()
+        list_actual = [[0, 1, 3, 4, 6, 7, 8], [2, 5]]
+        self.assertEqual(list, list_actual)
 
-        #test_4 -> fail:
+        #test_4:
         graph_algo.get_graph().remove_edge(2, 5)
-        # list = graph_algo.connected_components()
-        # list_actual = [[0, 1, 3, 4, 6, 7, 8], [2], [5]]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_components()
+        list_actual = [[0, 1, 3, 4, 6, 7, 8], [2], [5]]
+        self.assertEqual(list, list_actual)
 
         #test_5:
         graph_algo.get_graph().add_edge(2, 5, 6.1)
         graph_algo.get_graph().remove_edge(7, 4)
         graph_algo.get_graph().remove_edge(7, 1)
-        # list = graph_algo.connected_components()
-        # list_actual = [[0, 1, 3, 4], [2], [5], [6, 7, 8]]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_components()
+        list_actual = [[0, 1, 3, 4], [2, 5], [6, 7, 8]]
+        self.assertEqual(list, list_actual)
 
         #test_6:
         graph_algo.get_graph().add_edge(2, 3, 5.5)
         graph_algo.get_graph().remove_edge(5, 2)
-        # list = graph_algo.connected_components()
-        # list_actual = [[0, 1, 2, 3, 4], [5], [6, 7, 8]]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_components()
+        list_actual = [[0, 1, 2, 3, 4], [5], [6, 7, 8]]
+        self.assertEqual(list, list_actual)
 
         #test_7:
         graph_algo.get_graph().add_edge(5, 2, 6.1)
         graph_algo.get_graph().remove_edge(2, 5)
-        # list = graph_algo.connected_components()
-        # list_actual = [[0, 1, 2, 3, 4, 5], [6, 7, 8]]
-        # self.assertEqual(list, list_actual)
+        list = graph_algo.connected_components()
+        list_actual = [[0, 1, 2, 3, 4, 5, 6, 7, 8]]
+        self.assertEqual(list, list_actual)
 
     def test_create_one_hundred(self):
         graph = DiGraph()
@@ -341,13 +343,6 @@ class GraphAlgoTest(unittest.TestCase):
 
         # graph_algo = GraphAlgo(graph)
         # graph_algo.plot_graph()
-
-
-
-
-
-
-
 
 
 
