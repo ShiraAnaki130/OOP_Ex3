@@ -217,7 +217,7 @@ class GraphAlgoTest(unittest.TestCase):
         self.assertEqual(list, list_actual)
 
     def test_connected_components(self):
-        # test_0 -> pass:
+        # test_0 :
         graph_algo = GraphAlgo()
         list = graph_algo.connected_components()
         list_actual = []
@@ -250,24 +250,24 @@ class GraphAlgoTest(unittest.TestCase):
         graph.add_edge(2, 3, 5.5938753352369698)
         graph_algo = GraphAlgo(graph)
 
-        #test_1 -> fail:
+        #test_1:
         list = graph_algo.connected_components()
         list_actual = [[0, 1, 2, 3, 4, 5, 6, 7, 8]]
         self.assertEqual(list, list_actual)
 
-        #test_2 -> fail:
+        #test_2:
         graph_algo.get_graph().remove_edge(3, 2)
         list = graph_algo.connected_components()
         list_actual = [[0, 1, 2, 3, 4, 5, 6, 7, 8]]
         self.assertEqual(list, list_actual)
 
-        #test_3 -> fail:
+        #test_3:
         graph_algo.get_graph().remove_edge(2, 3)
         list = graph_algo.connected_components()
         list_actual = [[0, 1, 3, 4, 6, 7, 8], [2, 5]]
         self.assertEqual(list, list_actual)
 
-        #test_4 -> fail:
+        #test_4:
         graph_algo.get_graph().remove_edge(2, 5)
         list = graph_algo.connected_components()
         list_actual = [[0, 1, 3, 4, 6, 7, 8], [2], [5]]
@@ -343,13 +343,6 @@ class GraphAlgoTest(unittest.TestCase):
 
         # graph_algo = GraphAlgo(graph)
         # graph_algo.plot_graph()
-
-
-
-
-
-
-
 
 
 
