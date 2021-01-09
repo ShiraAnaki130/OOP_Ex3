@@ -170,3 +170,11 @@ class DiGraph(GraphInterface):
                             if not other.get_all_v().get(i).has_dest(k, v):
                                 return False
         return True
+
+if __name__ == '__main__':
+    graph = DiGraph()
+    for i in range(9):
+        graph.add_node(i)
+    for i in graph.get_all_v().values():
+        for j in graph.all_out_edges_of_node(i):
+            print(j)

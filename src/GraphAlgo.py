@@ -143,7 +143,7 @@ class GraphAlgo(GraphAlgoInterface):
                 path.append(node)
             path.reverse()
             return nodes[id2].get_tag(), path
-        return inf, None
+        return inf, []
 
     def plot_graph(self) -> None:
         """            This function plots the graph.
@@ -201,7 +201,7 @@ class GraphAlgo(GraphAlgoInterface):
             keys = [n for n in nodes_out.keys() if n in nodes_in.keys()]
             keys.sort()
             return keys
-        return None
+        return []
 
 
     def dfs(self, v: int):
