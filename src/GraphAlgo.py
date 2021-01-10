@@ -150,10 +150,11 @@ class GraphAlgo(GraphAlgoInterface):
         return nodes[id2].get_tag(), path
 
     def plot_graph(self) -> None:
-        """            This function plots the graph.
-            If the nodes have a position, the nodes will be placed there.
-            Otherwise, they will be placed in a random but elegant manner.
-            @return: None
+        """
+        This function plots the graph.
+        If the nodes have a position, the nodes will be placed there.
+        Otherwise, they will be placed in a random but elegant manner.
+        @return: None
          """
         all_vertexes = self._graph.get_all_v()
         x_values = []

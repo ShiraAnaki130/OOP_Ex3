@@ -1,4 +1,5 @@
 from src.DiGraph import DiGraph
+from src.DiGraph import DiGraph
 from src.GraphAlgo import GraphAlgo
 import time
 import networkx as nx
