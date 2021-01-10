@@ -257,8 +257,8 @@ class GraphAlgo(GraphAlgoInterface):
         :return :list of all the connected components
         """
         nodes = self._graph.get_all_v()
-        components = []
         mark = []
+        components = []
         for k in nodes.keys():
             if k not in mark:
                 component = self.connected_component(k)
