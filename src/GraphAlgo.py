@@ -181,9 +181,12 @@ class GraphAlgo(GraphAlgoInterface):
                 y1_coordinate = all_vertexes.get(i).get_pos()[1]
                 x2_coordinate = all_vertexes.get(j).get_pos()[0]
                 y2_coordinate = all_vertexes.get(j).get_pos()[1]
-                plt.arrow(x1_coordinate, y1_coordinate, (x2_coordinate - x1_coordinate),
-                          (y2_coordinate - y1_coordinate), length_includes_head=True, width=0.000003,
-                          head_width=0.00016, color='k')
+                if self._graph.v_size()<20:
+                    plt.arrow(x1_coordinate, y1_coordinate, (x2_coordinate - x1_coordinate),(y2_coordinate - y1_coordinate), length_includes_head=True, width=0.000009, head_width=0.0011111112233, color='k')
+                else:
+                    plt.arrow(x1_coordinate, y1_coordinate, (x2_coordinate - x1_coordinate),
+                              (y2_coordinate - y1_coordinate), length_includes_head=True, width=0.000003,
+                              head_width=0.00016, color='k')
         plt.ylabel("y axis")
         plt.title("OOP_Ex3")
         plt.xlabel("x axis")
