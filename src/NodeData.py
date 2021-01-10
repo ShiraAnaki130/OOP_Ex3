@@ -31,7 +31,35 @@ class NodeData(node_data):
         return node_dict
 
     def __lt__(self, other):
+        """
+        This function compering this NodeData with other NodeData by the associated tag mark.
+        :param other: another NodeData.
+        :return:
+        """
         return self._tag < other.get_tag()
+
+    def __eq__(self, other):
+        """
+        This function is checking if this node and the other object is equals.
+        :param other: another object
+        :return: True if other is from the type of NodeData and it equals to this node.
+        """
+        if not (isinstance(other, NodeData)) or (other is None):
+            return False
+        if self.id == other.get_key() and self.pos == other.get_pos() and self._weight == other.get_weight() and self._info == other.get_info() and self._tag == other.get_tag():
+            if len(other.get_dest()) == len(self._dest) and len(other.get_src()) == len(self._src):
+                for d, w in self._dest.items():
+                    if (other.get_dest().get(d) is None) or (other.get_dest().get(d) != w):
+                        return False
+
+                for s, w in self._src.items():
+                    if (other.get_src().get(s) is None) or (other.get_src().get(s) != w):
+                        return False
+            else:
+                return False
+        else:
+            return False
+        return True
 
     def __repr__(self) -> str:
         """"
