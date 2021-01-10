@@ -111,10 +111,13 @@ class GraphAlgo(GraphAlgoInterface):
         :param id2: destination node id
         :return : tuple of the distance of the edge in the graph and list of the nodes keys in the path.
         """
-        if id1 == id2:
-            return inf, []
         priority_queue = queue.PriorityQueue()
         nodes = self._graph.get_all_v()
+        if id1 == id2:
+            if id1 in nodes.keys():
+                return 0.0, [id1]
+            else:
+                return inf, []
         if id1 not in nodes.keys() or id2 not in nodes.keys():
             return inf, []
         parent = {}
@@ -253,8 +256,8 @@ class GraphAlgo(GraphAlgoInterface):
         :return :list of all the connected components
         """
         nodes = self._graph.get_all_v()
-        components = []
         mark = []
+        components = []
         for k in nodes.keys():
             if k not in mark:
                 component = self.connected_component(k)
