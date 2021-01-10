@@ -49,7 +49,7 @@ def runtime_nx(v, e):
 def runtime(v,e):
     graph_algo = GraphAlgo()
     start_time = time.time()
-    graph_algo.load_from_json("../data/G_{}_{}_0.json".format(v, e))
+    graph_algo.load_from_json("../data/G_{}_{}_1.json".format(v, e))
     end_time = time.time()
     time_load = end_time - start_time
     print("end load graph G_{}_{}_0    time : {} ".format(v, e, time_load,))
