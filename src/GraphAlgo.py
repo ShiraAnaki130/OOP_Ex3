@@ -266,4 +266,14 @@ class GraphAlgo(GraphAlgoInterface):
                 components.append(component)
         return components
 
+    def __eq__(self, other):
+        """
+        This function is checking if this GraphAlgo and the other object is equals.
+        :param other: another object
+        :return: True if other is from the type of GraphAlgo and it equals to this GraphAlgo.
+        """
+        if not (isinstance(other, GraphAlgo)) or (other is None):
+            return False
+        return self._graph.__eq__(other.get_graph())
+
 

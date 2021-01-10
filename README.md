@@ -127,19 +127,24 @@ The algorithms are:
 :file_folder: data folder: https://github.com/ShiraAnaki130/OOP_Ex3/tree/master/data 
 
 
-*How to use our project code?*
+##*How to use our project code?*
 
-- [x] Download Pycharm.
+- [x] Download Python 3.9.
 
 - [x] Open a new folder.
   
-- [x] Write on your new folder's Command Prompt the following commend: 
+- [x] Write on your new folder's cmd the following commend: 
 
       git clone https://github.com/ShiraAnaki130/OOP_Ex3.git
   
 - [x] Open the project 'OOP_Ex3' on Pycharm.
 
-- [x] Install matplotlib.pyplot and numpy packages for plotting.
+- [x] Install matplotlib library from your cmd/terminal with the following commends:
+  
+        - Install numpy       |version: 3.3.3
+
+        - Install matplotlib  |version 1.19.5
+  
 
 
 :lock: Please don't make any change on the codes without our permission.
