@@ -2,11 +2,12 @@
 
 ## About the project:
 
-The project is about programming a data structure called a directional weighted graph in python.
+The project is about programming a data structure called a directional weighted graph in python, which worked with three main algorithms: shortest path, connected component and connected components.
 
-The project code is basically a 'translation' from the OOP_Ex2 project's code, which about programming a directional weighted graph in Java.
+The main idea of the project is to examine the results of the implementation of the algorithms mentioned above, on Python, Java and NetworkX and compare the runtimes results between those different programs.
 
-The main idea of the project is to examine the tests results of this project compare to the same code program in Java, and in NetWorkX's python library, and concluding which of the program environment is preferable.
+:bar_chart: For the comparing results please view the Wiki page.
+
 
 ### About the graph:
 
@@ -107,14 +108,38 @@ The algorithms are:
 
 :small_blue_diamond: shortest_path(id1: int, id2: int) -> (path's distance, [id1 --> id2]): returns a tuple with the shortest path from node id1 to node id2 and the path's distance using Dijkstra's Algorithm.
 
-:small_blue_diamond: connected_component(id1: int) -> list:
+:small_blue_diamond: connected_component(id1: int) -> list: returns a list with the id of the nodes which part of the Strongly Connected Component(SCC) of given node id.
 
-:small_blue_diamond: connected_components() -> List[list]:
+:small_blue_diamond: connected_components() -> List[list]: returns a list of all check Strongly Connected Component(SCC) on the graph.
 
 :small_blue_diamond: plot_graph(): ploting the graph, using matplotlib.pyplot .
 
-:pushpin: Attached herein tree tests, one for every class mentioned above. The tests examine the integrity of the functions that thhe classes
-support,on both basic and extreme cases.
+:pushpin: Attached herein tree tests:
+
+- test_nodedata: A simple test in which examine the integrity of the functions on  the class of 'NodeData'. 
+
+- test_digraph: A test in which examine the integrity of the functions on the class of 'DiGraph'.
+  
+- test_graph_algo: A test  in which examine the integrity of the functions on the class of 'GraphAlgo', on both basic and extreme cases.
+
+- test_compare_python: A test in which examine the algorithms of 'GraphAlgo' class, on the JSON files(A0-A5) in data's folder -on both basic and extreme cases.
+
+:file_folder: data folder: https://github.com/ShiraAnaki130/OOP_Ex3/tree/master/data 
+
+
+*How to use our project code?*
+
+- [x] Download Pycharm.
+
+- [x] Open a new folder.
+  
+- [x] Write on your new folder's Command Prompt the following commend: 
+
+      git clone https://github.com/ShiraAnaki130/OOP_Ex3.git
+  
+- [x] Open the project 'OOP_Ex3' on Pycharm.
+
+- [x] Install matplotlib.pyplot and numpy packages for plotting.
 
 
 :lock: Please don't make any change on the codes without our permission.

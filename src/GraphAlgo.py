@@ -111,10 +111,13 @@ class GraphAlgo(GraphAlgoInterface):
         :param id2: destination node id
         :return : tuple of the distance of the edge in the graph and list of the nodes keys in the path.
         """
-        if id1 == id2:
-            return inf, []
         priority_queue = queue.PriorityQueue()
         nodes = self._graph.get_all_v()
+        if id1 == id2:
+            if id1 in nodes.keys():
+                return 0.0, [id1]
+            else:
+                return inf, []
         if id1 not in nodes.keys() or id2 not in nodes.keys():
             return inf, []
         parent = {}
@@ -147,10 +150,11 @@ class GraphAlgo(GraphAlgoInterface):
         return nodes[id2].get_tag(), path
 
     def plot_graph(self) -> None:
-        """            This function plots the graph.
-            If the nodes have a position, the nodes will be placed there.
-            Otherwise, they will be placed in a random but elegant manner.
-            @return: None
+        """
+        This function plots the graph.
+        If the nodes have a position, the nodes will be placed there.
+        Otherwise, they will be placed in a random but elegant manner.
+        @return: None
          """
         all_vertexes = self._graph.get_all_v()
         x_values = []
