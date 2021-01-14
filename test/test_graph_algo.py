@@ -308,7 +308,6 @@ class GraphAlgoTest(unittest.TestCase):
             if i != 0:
                 graph.add_edge(i, i - 1, weight)
         graph_algo = GraphAlgo(graph)
-        graph_algo.plot_graph()
 
     def test_create_ten_power_four(self):
         vertexes = 10 ** 4
@@ -325,7 +324,6 @@ class GraphAlgoTest(unittest.TestCase):
             graph.add_edge(i, i+1, weight)
 
         graph_algo = GraphAlgo(graph)
-        graph_algo.plot_graph()
 
     def test_create_ten_power_six(self):
         vertexes = 10 ** 6
